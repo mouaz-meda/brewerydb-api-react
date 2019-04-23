@@ -9,14 +9,14 @@ class Error extends React.Component {
     return (
       <Fragment>
         <Background />
-        <div className="container beer-detail">
+        <div className="container">
           <div className="container-fluid shadow py-3">
             <div className="row">
               <div className="col-12 col-md-4 col-lg-3">
                 <img
-                  class="img-fluid mb-3 mb-md-0"
+                  className="img-fluid mb-3 mb-md-0"
                   src={"/assets/images/No-beer.jpg"}
-                  alt="Not found"
+                  alt="Error"
                 />
               </div>
               <div className="col-12 col-md-8 col-lg-9">

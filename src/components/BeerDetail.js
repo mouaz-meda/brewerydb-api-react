@@ -42,6 +42,8 @@ class BeerDetail extends React.Component {
         return "YES";
       case "N":
         return "NO";
+      default:
+        return null;
     }
   }
 
@@ -78,7 +80,7 @@ class BeerDetail extends React.Component {
             </div>
 
             <div className="d-flex row justify-content-around align-items-center">
-              <div className="align-self-center">
+              <div className="align-self-center mb-3 mb-md-0">
                 <img
                   src={this.thumbnail(beer)}
                   alt={`Bottle label: ${beer.name}`}

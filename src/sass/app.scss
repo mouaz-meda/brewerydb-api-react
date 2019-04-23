@@ -1,8 +1,9 @@
-@import "../../node_modules/rc-pagination/assets/index.css";
+$link-color: #4ae7ff;
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
-@import "bootstrap-variables";
-@import "Background";
-@import "Beers";
+@import "../../node_modules/rc-pagination/assets/index.css";
+@import "background";
+@import "beers";
 
 /* GENERAL STYLES */
 
