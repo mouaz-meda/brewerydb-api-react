@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import Loading from "./Loading";
 import Background from "./Background";
 import Error from "./Error";
-import axios from "axios";
+import BeerApi from "../helpers/BeerApi";
 
 class BeerDetail extends React.Component {
   constructor(props) {
@@ -16,35 +16,21 @@ class BeerDetail extends React.Component {
   }
 
   componentDidMount() {
-    const url = "http://localhost:5000/api/get-single";
+    const api = new BeerApi();
 
-    axios
-      .get(url, {
-        params: {
-          id: this.props.id
-        }
-      })
-      .then(response => {
-        if (response) {
-          if (response.status === 200) {
-            this.setState({
-              beer: response.data.data,
-              isLoading: false,
-              isDataArrived: true
-            });
-          }
-        } else {
-          this.setState({
-            isDataArrived: false
-          });
-        }
-      })
-      .catch(error => {
+    api.getSingle(this.props.id).then(response => {
+      if (response) {
+        this.setState({
+          beer: response.data.data,
+          isLoading: false,
+          isDataArrived: true
+        });
+      } else {
         this.setState({
           isDataArrived: false
         });
-        console.error(error);
-      });
+      }
+    });
   }
 
   render() {

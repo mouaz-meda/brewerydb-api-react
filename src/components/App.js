@@ -5,9 +5,9 @@ import Background from "./Background";
 import Loading from "./Loading";
 import BeerList from "./BeerList";
 import Error from "./Error";
+import BeerApi from "../helpers/BeerApi";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "../sass/App.scss";
-import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
@@ -30,56 +30,41 @@ class App extends React.Component {
 
   loadData() {
     this.setState(state => ({ ...state, isLoading: true }));
+    const api = new BeerApi();
 
-    const url = "http://localhost:5000/api/get-beers";
-
-    axios
-      .get(url, {
-        params: {
-          p: this.state.pagination.currentPage
-        }
-      })
-      .then(response => {
-        if (response) {
-          if (response.data.currentPage !== response.data.numberOfPages) {
-            this.setState({
-              isDataArrived: true,
-              isLoading: false,
-              beers: response.data.data,
-              pagination: {
-                currentPage: response.data.currentPage,
-                itemsPerPage: response.data.data.length,
-                total: response.data.totalResults
-              }
-            });
-          }
-
-          // fix pagination break at last page
-          if (response.data.currentPage === response.data.numberOfPages) {
-            this.setState({
-              isDataArrived: true,
-              isLoading: false,
-              beers: response.data.data,
-              pagination: {
-                currentPage: response.data.currentPage,
-                itemsPerPage: 50,
-                total: response.data.totalResults
-              }
-            });
-          }
-        } else {
+    api.getList(this.state.pagination.currentPage).then(response => {
+      if (response) {
+        if (response.data.currentPage !== response.data.numberOfPages) {
           this.setState({
-            isDataArrived: false
+            isDataArrived: true,
+            isLoading: false,
+            beers: response.data.data,
+            pagination: {
+              currentPage: response.data.currentPage,
+              itemsPerPage: response.data.data.length,
+              total: response.data.totalResults
+            }
           });
         }
-      })
-
-      .catch(error => {
+        // fix pagination break at last page
+        if (response.data.currentPage === response.data.numberOfPages) {
+          this.setState({
+            isDataArrived: true,
+            isLoading: false,
+            beers: response.data.data,
+            pagination: {
+              currentPage: response.data.currentPage,
+              itemsPerPage: 50,
+              total: response.data.totalResults
+            }
+          });
+        }
+      } else {
         this.setState({
           isDataArrived: false
         });
-        console.error(error);
-      });
+      }
+    });
   }
 
   paginate = (page, itemsPerPage) => {
