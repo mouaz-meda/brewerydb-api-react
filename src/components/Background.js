@@ -6,12 +6,12 @@ const Background = () => {
       <div className="coded-by">
         <span>
           coded by &nbsp;
-          <a href="https://mouaz.de" target="_blank" rel="noopener">
+          <a href="https://mouaz.de" target="_blank" rel="noopener noreferrer">
             Mo3aZ
           </a>
         </span>
       </div>
-      <div className="background-image container-fluid " />
+      <div className="background-image container-fluid" />
       <h1>Thirsty for beer?</h1>
     </div>
   );

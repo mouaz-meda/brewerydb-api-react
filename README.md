@@ -8,7 +8,7 @@ With the following steps you can setup the project in your local development env
 
 **Requirements:**
 
-- Node.js 10+
+- Node.js 10 LTS
 - npm 6+
 
 ### 1. Clone the repository
