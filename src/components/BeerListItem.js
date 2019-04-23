@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BeerListItem = props => {
   return (
-    <Link to={"/beer/" + props.beer.id} className="card shadow">
+    <Link to={"/beer/" + props.beer.id} className="card shadow border-0">
       <img
         className="card-img-top"
         src={

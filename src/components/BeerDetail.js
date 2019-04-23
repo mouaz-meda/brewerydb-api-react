@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Loading from "./Loading";
-import Background from "./Background";
 import Error from "./Error";
+import Background from "./Background";
 import BeerApi from "../helpers/BeerApi";
 
 class BeerDetail extends React.Component {
@@ -10,8 +10,8 @@ class BeerDetail extends React.Component {
 
     this.state = {
       beer: null,
-      isLoading: Boolean,
-      isDataArrived: Boolean
+      isLoading: true,
+      apiError: false
     };
   }
 
@@ -22,33 +22,50 @@ class BeerDetail extends React.Component {
       if (response) {
         this.setState({
           beer: response.data.data,
-          isLoading: false,
-          isDataArrived: true
+          isLoading: false
         });
       } else {
         this.setState({
-          isDataArrived: false
+          apiError: true
         });
       }
     });
   }
 
+  isOrganic(beer) {
+    if (!beer.isOrganic) {
+      return "N/A";
+    }
+
+    switch (beer.isOrganic) {
+      case "Y":
+        return "YES";
+      case "N":
+        return "NO";
+    }
+  }
+
+  thumbnail(beer) {
+    if (!beer.labels || !beer.labels.medium) {
+      return "/assets/images/No-beer-2-404.jpg";
+    }
+
+    return beer.labels.medium;
+  }
+
   render() {
     const beer = this.state.beer;
 
-    if (!this.state.isDataArrived) {
+    if (this.state.apiError) {
       return <Error />;
-    }
-    if (this.state.isLoading) {
+    } else if (this.state.isLoading) {
       return (
         <Fragment>
           <Background />
           <Loading />
         </Fragment>
       );
-    }
-
-    if (this.state.isDataArrived) {
+    } else {
       return (
         <Fragment>
           <Background />
@@ -60,21 +77,17 @@ class BeerDetail extends React.Component {
               </a>
             </div>
 
-            <div className=" d-flex row justify-content-around align-items-center">
+            <div className="d-flex row justify-content-around align-items-center">
               <div className="align-self-center">
                 <img
-                  src={
-                    beer.labels
-                      ? beer.labels.medium
-                      : "/assets/images/No-beer-2-404.jpg"
-                  }
-                  alt="Label"
+                  src={this.thumbnail(beer)}
+                  alt={`Bottle label: ${beer.name}`}
                 />
               </div>
 
               <div className="align-self-center">
                 <p>
-                  <b>Name:</b> &nbsp; {beer.name ? beer.name : "N/A"}
+                  <b>Name:</b> &nbsp; {beer.name || "N/A"}
                 </p>
 
                 <p>
@@ -82,16 +95,12 @@ class BeerDetail extends React.Component {
                 </p>
 
                 <p>
-                  <b>Ibu:</b> &nbsp; {beer.ibu ? beer.ibu : "N/A"}
+                  <b>Ibu:</b> &nbsp; {beer.ibu || "N/A"}
                 </p>
 
                 <p>
                   <b>Organic:</b> &nbsp;
-                  {beer.isOrganic
-                    ? beer.isOrganic === "Y"
-                      ? "YES"
-                      : "NO"
-                    : "N/A"}
+                  {this.isOrganic(beer)}
                 </p>
 
                 <p>
@@ -101,54 +110,42 @@ class BeerDetail extends React.Component {
 
                 <p>
                   <b>Update date:</b> &nbsp;
-                  {beer.updateDate ? beer.createDate : "N/A"}
+                  {beer.updateDate || "N/A"}
                 </p>
 
                 <p>
-                  <b>Year:</b> &nbsp; {beer.year ? beer.year : "N/A"}
+                  <b>Year:</b> &nbsp; {beer.year || "N/A"}
                 </p>
                 <p>
-                  <b>Status:</b> &nbsp; {beer.status ? beer.status : "N/A"}
+                  <b>Status:</b> &nbsp; {beer.status || "N/A"}
                 </p>
 
-                {beer.labels ? (
+                {beer.labels && (
                   <div>
                     <p>
                       <b>Labels:</b> &nbsp;
-                      <a href={beer.labels.icon ? beer.labels.icon : ""}>
-                        Icon
-                      </a>
-                      , &nbsp;
-                      <a href={beer.labels.medium ? beer.labels.medium : ""}>
-                        Medium
-                      </a>
-                      , &nbsp;
-                      <a href={beer.labels.large ? beer.labels.large : ""}>
-                        Large
-                      </a>
+                      <a href={beer.labels.icon || ""}>Icon</a>, &nbsp;
+                      <a href={beer.labels.medium || ""}>Medium</a>, &nbsp;
+                      <a href={beer.labels.large || ""}>Large</a>
                     </p>
                   </div>
-                ) : (
-                  ""
                 )}
 
-                {beer.glass ? (
+                {beer.glass && (
                   <div>
                     <p>
                       <b>Glass id: </b>&nbsp;
-                      {beer.glass.id ? beer.glass.id : "N/A"}
+                      {beer.glass.id || "N/A"}
                     </p>
                     <p>
                       <b>Glass name:</b> &nbsp;
-                      {beer.glass.name ? beer.glass.name : "N/A"}
+                      {beer.glass.name || "N/A"}
                     </p>
                     <p>
                       <b>Glass create data:</b> &nbsp;
-                      {beer.glass.createDate ? beer.glass.createDate : "N/A"}
+                      {beer.glass.createDate || "N/A"}
                     </p>
                   </div>
-                ) : (
-                  ""
                 )}
               </div>
             </div>

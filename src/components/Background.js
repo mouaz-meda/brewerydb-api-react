@@ -6,7 +6,7 @@ const Background = () => {
       <div className="coded-by">
         <span>
           coded by &nbsp;
-          <a href="https://mouaz.de" target="_blank" rel="noopener noreferrer">
+          <a href="https://mouaz.de" target="_blank" rel="noopener">
             Mo3aZ
           </a>
         </span>
