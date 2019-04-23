@@ -1,0 +1,49 @@
+/* BEER LIST STYLES */
+
+.card {
+  width: 256px;
+  margin: 1rem;
+  .card-body {
+    color: #fff;
+  }
+}
+
+.card-img-top {
+  height: 256px;
+  width: 256px;
+}
+
+.back-button {
+  border-color: #fff;
+  color: #fff;
+  // background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.back-button:hover {
+  color: $link-color;
+  border-color: $link-color;
+}
+
+.beer-detail {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 10rem;
+}
+
+.row a {
+  text-decoration: none;
+}
+
+/* PAGINATION */
+
+.rc-pagination {
+  margin: 10px;
+}
+
+.rc-pagination-item-active {
+  background-color: $link-color;
+  border-color: $link-color;
+  color: #fff;
+}

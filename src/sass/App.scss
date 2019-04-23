@@ -1,0 +1,48 @@
+@import "../../node_modules/rc-pagination/assets/index.css";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap-variables";
+@import "Background";
+@import "Beers";
+
+/* GENERAL STYLES */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.hidden {
+  display: none;
+}
+
+.shadow {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+a {
+  color: $link-color;
+}
+
+p {
+  color: white;
+}
+
+/* ERROR - NOTFOUND - LOADING STYLES */
+
+.not-found-header {
+  color: #fff;
+}
+
+.loading-text {
+  font-size: 2rem;
+}
